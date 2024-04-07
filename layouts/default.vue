@@ -16,9 +16,11 @@
 
     <template #center>
         <div class="flex flex-wrap items-center gap-3">
-            <NuxtLink to="/"><button class="p-link inline-flex justify-center items-center text-white h-[3rem] w-[3rem] rounded-full hover:bg-white/10 transition-all transition-duration-200"><i class="pi pi-home text-2xl"></i></button> </NuxtLink>
+            <NuxtLink to="/"><Button icon="pi pi-home" /></NuxtLink>
             <NuxtLink to="/info"> <button class="p-link inline-flex justify-center items-center text-white h-[3rem] w-[3rem] rounded-full hover:bg-white/10 transition-all transition-duration-200"><i class="pi pi-info text-2xl"></i></button></NuxtLink>
-            <button class="p-link inline-flex justify-center items-center text-white h-[3rem] w-[3rem] rounded-full hover:bg-white/10 transition-all transition-duration-200"><i class="pi pi-search text-2xl"></i></button>
+            <button class="p-link inline-flex justify-center items-center text-white h-[3rem] w-[3rem] rounded-full hover:bg-white/10 transition-all transition-duration-200" @click="toggleTheme()"><i class="pi text-2xl"
+                :class="iconTheme"
+                ></i></button>
         </div>
     </template>
 
@@ -34,5 +36,24 @@
 </template>
 
 <script setup lang="ts">
+import { usePrimeVue } from 'primevue/config'
 
+const currentTheme = ref('lara-light-green');
+const iconTheme = ref('pi pi-sun');
+const PrimeVue = usePrimeVue()
+
+const toggleTheme = () => {
+    let nextTheme = 'lara-dark-green';
+    if (currentTheme.value === 'lara-light-green'){
+        iconTheme.value = 'pi pi-moon';
+         nextTheme = 'lara-dark-green'
+    } else if (currentTheme.value === 'lara-dark-green') {
+        iconTheme.value = 'pi pi-sun';
+        nextTheme = 'lara-light-green'
+    }
+
+    PrimeVue.changeTheme(currentTheme.value, nextTheme, 'theme-link', () => {});
+
+    currentTheme.value = nextTheme;
+}
 </script>

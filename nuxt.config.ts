@@ -2,6 +2,17 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "nuxt-primevue"],
+  app: {
+    head: {
+      link: [
+        {
+          id: "theme-link",
+          rel: "stylesheet",
+          href: "/themes/lara-light-green/theme.css",
+        }
+      ]
+    }
+  },
   primevue: {
     options: {
       unstyled: true,
